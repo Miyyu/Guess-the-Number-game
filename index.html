@@ -17,11 +17,36 @@
         body{
             width: 50%;
             margin: auto;
+            background-color: #f0efeb;
+            text-align: center;
+        }
+
+        h1{
+            text-shadow: 0.1em 0.1em 0.5em black
         }
 
         p{
             font-size: 30px;
         }
+
+        .submitPalpite, button{
+            background-color: #cce3de;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 20px;
+            box-shadow: 0 9px #999
+        }
+
+        .submitPalpite:active, button:active { /*quando o botão é clicado*/
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        label{
+            font-size: 25px;
+        }
+        
     </style>
 </head>
 <body>
@@ -58,7 +83,7 @@
 
         function conferirPalpite(){ //conferir o valor digitado pelo usuário
             var palpiteUsuario = Number(valorPalpite.value); //recebe o valor digitado e faz com que obrigatóriamente seja um number
-
+            
             if(contPalpites === 1){ //se a quantidade de jogadas for = 1, coloca as info que estavam ocultadas
                 palpites.textContent = 'Valores Anteriores: '; //.textcontent serve para atribuir texto ao objeto
             }
