@@ -50,28 +50,31 @@
         var certoOUerrado = document.querySelector('.certoOUerrado');
         var dica = document.querySelector('.dica');
 
-        var envioPalpite = document.querySelector('.submitPalpite'); //atribuindo valor para o submit e o texto digitado
-        var valorPalpite = document.querySelector('.campoPalpite');
+        var envioPalpite = document.querySelector('.submitPalpite'); //atribuindo valor para o botão de envio
+        var valorPalpite = document.querySelector('.campoPalpite'); //atribuindo a caixa de texto
 
         var contPalpites = 1; //iniciar a quantidade de vezes de jogadas
+        var botaoReinicio;
 
         function conferirPalpite(){ //conferir o valor digitado pelo usuário
             var palpiteUsuario = Number(valorPalpite.value); //recebe o valor digitado e faz com que obrigatóriamente seja um number
+
             if(contPalpites === 1){ //se a quantidade de jogadas for = 1, coloca as info que estavam ocultadas
                 palpites.textContent = 'Valores Anteriores: '; //.textcontent serve para atribuir texto ao objeto
             }
-
             palpites.textContent += palpiteUsuario + " "; // concatenando o que foi digitado com o que tava antes
 
             if(palpiteUsuario === numeroAleatorio){ //verificando as jogadas
                 certoOUerrado.textContent = 'PARABÉNS! VOCÊ ACERTOU.';
                 certoOUerrado.style.backgroundColor = 'green'; //deixa o fundo de onde está o p certoOUerrado verde
                 dica.textContent = ''; //sumindo com as dicas
+                fimDeJogo();
             }
             else if(contPalpites === 10){ //verifica se o usuário jogou 10x
                 certoOUerrado.textContent = 'Infelizmente você perdeu!';
                 certoOUerrado.style.backgroundColor = 'grey'; //deixa o fundo cinza
                 dica.textContent = '';
+                fimDeJogo();
             }
             else{ //se não exedeu o limite de jogas e não está certo
                 certoOUerrado.textContent = 'Errado!';
@@ -90,14 +93,35 @@
             campoPalpite.focus(); //focar no campo de palpite
         }
 
-        envioPalpite.addEventListener('click', conferirPalpite); //
+        envioPalpite.addEventListener('click', conferirPalpite); //adicionando um evento para o botão de submit palpite, onde passamos 2 parametros, sendo que a função conferirPalpite é acionada se houver um clique no botão submit
 
         function fimDeJogo(){
-            campoPalpite.disable = true;
-            submitPalpite.disable = true;
-            botaoReinicio = document.createElement('button');
-            botaoReinicio.textContent = 'Reiniciar jogo';
+            envioPalpite.disabled = true; //desabilitando o campo palpite para não ser inserido mais nada, disable = true
+            valorPalpite.disabled = true;
+            botaoReinicio = document.createElement('button'); //criando um novo botão e inserindo no final do body.
+            botaoReinicio.textContent = 'Iniciar novo jogo';
+            document.body.appendChild(botaoReinicio); //"Adiciona um nó ao final da lista de filhos de um nó pai especificado."
+            botaoReinicio.addEventListener('click', reiniciarJogo); //add evento de clique para chamar a função renicarJogo       
+        }
 
+        function reiniciarJogo(){
+            contPalpites = 1;
+
+            var reinicarDiv = document.querySelectorAll('.palpite p'); //criando variável para reiniciar a div dos palpites, selecioando tudo que estiver nessa div, não esquecendo de colocar o p em seguida
+            
+            for(var i = 0; i < reinicarDiv.length; i++){ //for para percorrer a div, com o tamanho dos argumentos que ela tem
+                reinicarDiv[i].textContent = ''; //zerando os textos de cada indice da div Palpites
+            }
+
+            botaoReinicio.parentNode.removeChild(botaoReinicio); //removendo o botão de reinicio
+
+            envioPalpite.disabled = false; //habilitando o input e o botão
+            valorPalpite.disabled = false;
+            valorPalpite.value = ''; //zerando campo palpite
+            valorPalpite.focus();
+
+            certoOUerrado.style.backgroundColor = 'white'; //retornando o fundo do certoOUerrado para branco
+            numeroAleatorio = Math.floor(Math.random() * 100) + 1; //gerando outro numero aleatorio;
         }
 
     </script>
