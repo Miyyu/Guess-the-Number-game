@@ -51,6 +51,7 @@
 </head>
 <body>
     <h1>Adivinhe o Número</h1>
+    <hr>
 
     <p>Iremos gerar um número aleatório de 1 a 100 e você deverá descobrir o número. Você terá <b>10</b> chances
         para tentar adivinhar esse número.
@@ -85,7 +86,7 @@
         function conferirPalpite(){ //conferir o valor digitado pelo usuário
             var palpiteUsuario = Number(valorPalpite.value); //recebe o valor digitado e faz com que seja um number
 
-            if(palpiteUsuario < 1 || palpiteUsuario > 100){
+            if(palpiteUsuario < 1 || palpiteUsuario > 100 || isNaN(palpiteUsuario)){ //verificando se o valor está ente 1 e 100 e se é um numero - isNaN irá retornar um boolean dizendo se o valor é um NaN
                 window.alert("Insira apenas valores de 1 a 100!");
                 contPalpites--;
             }
