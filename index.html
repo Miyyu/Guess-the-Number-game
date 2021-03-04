@@ -46,38 +46,38 @@
     <script>
         var numeroAleatorio= Math.floor(Math.random() * 100) + 1; //Gerando numero aleatório
 
-        var palpites = document.querySelector('.valoresAnteriores');
+        var palpites = document.querySelector('.valoresAnteriores'); //Atribuindo  valores para os p da div
         var certoOUerrado = document.querySelector('.certoOUerrado');
         var dica = document.querySelector('.dica');
 
-        var envioPalpite = document.querySelector('.submitPalpite');
+        var envioPalpite = document.querySelector('.submitPalpite'); //atribuindo valor para o submit e o texto digitado
         var valorPalpite = document.querySelector('.campoPalpite');
 
-        var contPalpites = 1;
+        var contPalpites = 1; //iniciar a quantidade de vezes de jogadas
 
-        function conferirPalpite(){
-            var palpiteUsuario = Number(valorPalpite.value);
-            if(contPalpites === 1){
-                palpites.textContent = 'Valores Anteriores: ';
+        function conferirPalpite(){ //conferir o valor digitado pelo usuário
+            var palpiteUsuario = Number(valorPalpite.value); //recebe o valor digitado e faz com que obrigatóriamente seja um number
+            if(contPalpites === 1){ //se a quantidade de jogadas for = 1, coloca as info que estavam ocultadas
+                palpites.textContent = 'Valores Anteriores: '; //.textcontent serve para atribuir texto ao objeto
             }
 
-            palpites.textContent += palpiteUsuario + " ";
+            palpites.textContent += palpiteUsuario + " "; // concatenando o que foi digitado com o que tava antes
 
-            if(palpiteUsuario === numeroAleatorio){
+            if(palpiteUsuario === numeroAleatorio){ //verificando as jogadas
                 certoOUerrado.textContent = 'PARABÉNS! VOCÊ ACERTOU.';
-                certoOUerrado.style.backgroundColor = 'green';
-                dica.textContent = '';
+                certoOUerrado.style.backgroundColor = 'green'; //deixa o fundo de onde está o p certoOUerrado verde
+                dica.textContent = ''; //sumindo com as dicas
             }
-            else if(contPalpites === 10){
+            else if(contPalpites === 10){ //verifica se o usuário jogou 10x
                 certoOUerrado.textContent = 'Infelizmente você perdeu!';
-                certoOUerrado.style.backgroundColor = 'grey';
+                certoOUerrado.style.backgroundColor = 'grey'; //deixa o fundo cinza
                 dica.textContent = '';
             }
-            else{
+            else{ //se não exedeu o limite de jogas e não está certo
                 certoOUerrado.textContent = 'Errado!';
                 certoOUerrado.style.backgroundColor = 'red';
 
-                if(palpiteUsuario < numeroAleatorio){
+                if(palpiteUsuario < numeroAleatorio){ //verifica se o palpite do usuário está abaixo do valor gerado
                     dica.textContent = 'Palpite baixo';
                 }
                 else if(palpiteUsuario > numeroAleatorio){
@@ -85,12 +85,20 @@
                 }
             }
             
-            contPalpites++;
-            campoPalpite.value = '';
-            campoPalpite.focus();
+            contPalpites++; //incremento a contagem das jogadas
+            campoPalpite.value = ''; //zero o campo de palpite para digitar
+            campoPalpite.focus(); //focar no campo de palpite
         }
 
-        envioPalpite.addEventListener('click', conferirPalpite);
+        envioPalpite.addEventListener('click', conferirPalpite); //
+
+        function fimDeJogo(){
+            campoPalpite.disable = true;
+            submitPalpite.disable = true;
+            botaoReinicio = document.createElement('button');
+            botaoReinicio.textContent = 'Reiniciar jogo';
+
+        }
 
     </script>
     
