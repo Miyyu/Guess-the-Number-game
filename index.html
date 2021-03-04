@@ -82,7 +82,7 @@
         var botaoReinicio;
 
         function conferirPalpite(){ //conferir o valor digitado pelo usuário
-            var palpiteUsuario = Number(valorPalpite.value); //recebe o valor digitado e faz com que obrigatóriamente seja um number
+            var palpiteUsuario = Number(valorPalpite.value); //recebe o valor digitado e faz com que seja um number
 
             if(palpiteUsuario < 1 || palpiteUsuario > 100){
                 window.alert("Insira apenas valores de 1 a 100!");
@@ -91,7 +91,7 @@
             else{
 
                 if(contPalpites === 1){ //se a quantidade de jogadas for = 1, coloca as info que estavam ocultadas
-                    palpites.textContent = 'Valores Anteriores: '; //.textcontent serve para atribuir texto ao objeto
+                    palpites.textContent = 'Valores Anteriores: '; //.textcontent serve para atribuir texto
                 }
                 palpites.textContent += palpiteUsuario + " "; // concatenando o que foi digitado com o que tava antes
 
@@ -102,12 +102,12 @@
                     fimDeJogo();
                 }
                 else if(contPalpites === 10){ //verifica se o usuário jogou 10x
-                    certoOUerrado.textContent = 'Infelizmente você perdeu!';
+                    certoOUerrado.textContent = 'Você perdeu! O número era ' + numeroAleatorio;
                     certoOUerrado.style.backgroundColor = 'grey'; //deixa o fundo cinza
                     dica.textContent = '';
                     fimDeJogo();
                 }
-                else{ //se não exedeu o limite de jogas e não está certo
+                else{ //se não excedeu o limite de jogas e não está certo
                     certoOUerrado.textContent = 'Errado!';
                     certoOUerrado.style.backgroundColor = 'red';
 
