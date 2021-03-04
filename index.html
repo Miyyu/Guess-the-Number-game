@@ -33,9 +33,66 @@
 
     <div class="form">
         <label for="campoPalpite">Digite seu palpite:</label>
-        <input type="text" id="campoPalpite">
+        <input type="text" id="campoPalpite" class="campoPalpite">
         <input type="submit" value="Enviar" class="submitPalpite">
     </div>
+
+    <div class="palpite">
+        <p class="valoresAnteriores"></p>
+        <p class="certoOUerrado"></p>
+        <p class="dica"></p>
+    </div>
+
+    <script>
+        var numeroAleatorio= Math.floor(Math.random() * 100) + 1; //Gerando numero aleatório
+
+        var palpites = document.querySelector('.valoresAnteriores');
+        var certoOUerrado = document.querySelector('.certoOUerrado');
+        var dica = document.querySelector('.dica');
+
+        var envioPalpite = document.querySelector('.submitPalpite');
+        var valorPalpite = document.querySelector('.campoPalpite');
+
+        var contPalpites = 1;
+
+        function conferirPalpite(){
+            var palpiteUsuario = Number(valorPalpite.value);
+            if(contPalpites === 1){
+                palpites.textContent = 'Valores Anteriores: ';
+            }
+
+            palpites.textContent += palpiteUsuario + " ";
+
+            if(palpiteUsuario === numeroAleatorio){
+                certoOUerrado.textContent = 'PARABÉNS! VOCÊ ACERTOU.';
+                certoOUerrado.style.backgroundColor = 'green';
+                dica.textContent = '';
+            }
+            else if(contPalpites === 10){
+                certoOUerrado.textContent = 'Infelizmente você perdeu!';
+                certoOUerrado.style.backgroundColor = 'grey';
+                dica.textContent = '';
+            }
+            else{
+                certoOUerrado.textContent = 'Errado!';
+                certoOUerrado.style.backgroundColor = 'red';
+
+                if(palpiteUsuario < numeroAleatorio){
+                    dica.textContent = 'Palpite baixo';
+                }
+                else if(palpiteUsuario > numeroAleatorio){
+                    dica.textContent = 'Palpite alto';
+                }
+            }
+            
+            contPalpites++;
+            campoPalpite.value = '';
+            campoPalpite.focus();
+        }
+
+        envioPalpite.addEventListener('click', conferirPalpite);
+
+    </script>
     
 </body>
 </html>
